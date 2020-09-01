@@ -125,3 +125,6 @@ dmypy.json
 
 # Environment variable files
 *.env
+
+# Virtual Environment
+*.venv
