@@ -10,7 +10,6 @@ WORKDIR /code
 COPY Pipfile Pipfile.lock /code/
 
 RUN pip install pipenv \
-    && pipenv install --system \
-    && rm -rf /root/.cache/pip/
+    && pipenv install --system
 
 COPY . .
