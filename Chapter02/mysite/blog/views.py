@@ -1,13 +1,21 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from taggit.models import Tag
 
 from .models import Post
 from .forms import EmailPostForm, CommentForm
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
     object_list = Post.published.all()
+    tag = None
+
+    if tag_slug:
+        # returns TaggableManager obj
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
     try:
@@ -23,6 +31,7 @@ def post_list(request):
         {
             'posts': posts,  # a Paginator object
             'page': page,
+            'tag': tag,
         }
     )
 
