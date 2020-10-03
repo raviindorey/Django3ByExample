@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 django = "*"
 django-taggit = "*"
+markdown = "*"
 
 [requires]
 python_version = "3.8"
