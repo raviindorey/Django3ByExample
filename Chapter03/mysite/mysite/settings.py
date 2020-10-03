@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # from django
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+
     # 3rd party
     'taggit',
 
@@ -129,3 +133,5 @@ STATIC_URL = '/static/'
 # Customize
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
