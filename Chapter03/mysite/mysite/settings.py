@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # from django
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
 
     # 3rd party
     'taggit',
