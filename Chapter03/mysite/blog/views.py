@@ -1,8 +1,8 @@
 from django.db.models import Count
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
-from django.contrib.postgres.search import SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from taggit.models import Tag
 
 from .models import Post
@@ -103,8 +103,14 @@ def post_search(request):
         form = SearchForm(data=request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
+            search_vector = SearchVector('title', 'body')
+            search_query = SearchQuery(query)
+            search_rank = SearchRank(search_vector, search_query)
+
             results = Post.published.annotate(
-                search=SearchVector('title', 'body')).filter(search=query)
+                search=search_vector,
+                rank=search_rank
+            ).filter(search=search_query).order_by('-rank')
 
     return render(request, 'blog/post/search.html', {
         'form': form,
