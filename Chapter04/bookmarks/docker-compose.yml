@@ -1,0 +1,13 @@
+version: '3.8'
+
+services: 
+  web:
+    build: .
+    image: d3be-bookstore
+    env_file:
+      - .env/web.env
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/code
+    command: python manage.py runserver 0.0.0.0:8000
