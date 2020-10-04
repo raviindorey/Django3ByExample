@@ -1,9 +1,10 @@
 from django.urls import path, include
 
-from .views import dashboard, register
+from .views import dashboard, register, edit
 
 urlpatterns = [
-    path('', dashboard, name='dashboard'),
-    path('', include('django.contrib.auth.urls')),
+    path('edit/', edit, name='edit'),
     path('register/', register, name='register'),
+    path('', include('django.contrib.auth.urls')),
+    path('', dashboard, name='dashboard'),
 ]
