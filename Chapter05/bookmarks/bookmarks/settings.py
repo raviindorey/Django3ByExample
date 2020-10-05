@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'social_django',
-    'django_extensions',
+    'django_extensions' if DEBUG else None,
 ]
 
 MIDDLEWARE = [
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -149,9 +149,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Social login: SSL
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+if DEBUG:
+    # Only configured for development env
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
 
 # Social login: Facebook
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']

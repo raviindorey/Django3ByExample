@@ -4,14 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+django-extensions = "*"
+werkzeug = "*"
+pyopenssl = "*"
 
 [packages]
 django = "*"
 pillow = "*"
 social-auth-app-django = "*"
-django-extensions = "*"
-werkzeug = "*"
-pyopenssl = "*"
 
 [requires]
 python_version = "3.8"

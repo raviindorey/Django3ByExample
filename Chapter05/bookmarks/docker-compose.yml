@@ -2,7 +2,9 @@ version: '3.8'
 
 services: 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
     image: d3be-bookstore
     env_file:
       - .env/web.env
