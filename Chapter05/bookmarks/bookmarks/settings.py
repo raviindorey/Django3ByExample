@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Local
+    'images.apps.ImagesConfig',
+
     # 3rd party
     'social_django',
     'django_extensions' if DEBUG else None,
