@@ -128,3 +128,7 @@ dmypy.json
 
 # Virtual Environment
 *.venv
+
+# Certificates and keys
+*.key
+*.crt
