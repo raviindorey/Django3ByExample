@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get('ENV') == 'production' else True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party
+    'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',   # social
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -134,6 +139,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 AUTHENTICATION_BACKENDS = [
+    # Default:
     'django.contrib.auth.backends.ModelBackend',
+    # Custom:
     'account.authentication.EmailAuthBackend',
+    # social-auth-app-django:
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
 ]
+
+# Social login: SSL
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+# Social login: Facebook
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+# Social login: Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'
+)
