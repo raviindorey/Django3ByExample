@@ -12,6 +12,7 @@ pyopenssl = "*"
 django = "*"
 pillow = "*"
 social-auth-app-django = "*"
+certifi = "*"
 
 [requires]
 python_version = "3.8"
