@@ -29,9 +29,11 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    is_liked = request.user in image.users_like.all()
     return render(request, 'images/image/detail.html',  {
         'section': 'images',
         'image': image,
+        'is_liked': is_liked,
     })
 
 

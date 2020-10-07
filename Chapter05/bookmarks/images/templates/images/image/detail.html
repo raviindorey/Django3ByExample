@@ -11,20 +11,33 @@
       class="image-detail"
     >
   </a>
-  {% with total_likes=image.users_like.count %}
+  {% with total_likes=image.users_like.count users_like=image.users_like.all %}
     <div class="image-info">
       <div>
         <span class="count">
-          {{ total_likes }} like{{ total_likes | pluralize }}
+          <span class="total">{{ total_likes }}</span>
+          like{{ total_likes | pluralize }}
         </span>
+        <a href="#" data-id="{{ image.id }}"
+          data-action="{% if is_liked %}un{% endif %}like"
+          class="like button">
+          {% if is_liked %}
+            Unlike
+          {% else %}
+            Like
+          {% endif %}
+        </a>
       </div>
       {{ image.description | linebreaks }}
     </div>
     <div class="image-likes">
-      {% for user in image.user_likes.all %}
+      <h4>Liked by:</h4>
+      {% for user in users_like %}
       <div>
-        <img src="{{ user.profile.photo.url }}" alt="user-profile-pic">
-        <p>{{ user.first_name }}</p>
+        {% if user.profile.photo %}
+          <img src="{{ user.profile.photo.url }}" alt="user-profile-pic">
+        {% endif %}
+        <p>{{ forloop.counter }}. {{ user.first_name }}</p>
       </div>
       {% empty %}
         No likes yet.
@@ -32,3 +45,26 @@
     </div>
   {% endwith %}
 {% endblock content %}
+
+{% block domready %}
+<script>
+  $('a.like').click(function(e){
+    e.preventDefault();
+    $.post('{% url "images:like" %}', {
+      id: $(this).data('id'),
+      action: $(this).data('action')
+    }, function(data){
+      if(data['status'] == 'ok') {
+        // update dom
+        var previous_action = $('a.like').data('action');
+        console.log(previous_action);
+        $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+        $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+        
+        var previous_likes = parseInt($('span.count .total').text());
+        $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+      }
+    });
+  });
+</script>
+{% endblock domready %}
