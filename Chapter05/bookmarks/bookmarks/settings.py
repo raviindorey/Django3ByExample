@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 3rd party
     'social_django',
     'django_extensions' if DEBUG else None,
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [

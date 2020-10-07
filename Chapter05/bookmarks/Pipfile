@@ -13,6 +13,7 @@ django = "*"
 pillow = "*"
 social-auth-app-django = "*"
 certifi = "*"
+easy-thumbnails = "*"
 
 [requires]
 python_version = "3.8"
