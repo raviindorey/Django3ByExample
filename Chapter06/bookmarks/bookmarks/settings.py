@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # Local
     'images.apps.ImagesConfig',
+    'actions.apps.ActionsConfig',
 
     # 3rd party
     'social_django',
