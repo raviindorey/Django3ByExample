@@ -8,7 +8,7 @@
   <div class="profile-info">
     <img src="{% thumbnail user.profile.photo 180x180 %}" alt="user-profile-pic" class="user-detail">
   </div>
-  {% with total_followers as user.followers.count %}
+  {% with user.followers.count as total_followers %}
     <span class="count">
       <span class="total">{{ total_followers }}</span>
       follower{{ total_followers | pluralize }}
@@ -29,3 +29,28 @@
     </div>
   {% endwith %}
 {% endblock content %}
+
+{% block domready %}
+<script>
+  $('a.follow').click(function(e){
+    e.preventDefault();
+    $.post(
+      '{% url "user_follow" %}',
+      {
+        id: $(this).data('id'),
+        action: $(this).data('action'),
+      },
+      function(data) {
+        if(data['status'] == 'ok') {
+          var previous_action = $('a.follow').data('action');
+          // update DOM
+          $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+          $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow')
+          var previous_followers_count = parseInt($('span.count .total').text());
+          $('span.count .total').text(previous_action == 'follow' ? previous_followers_count + 1 : previous_followers_count - 1)
+        }
+      }
+    );
+  });
+</script>
+{% endblock domready %}
