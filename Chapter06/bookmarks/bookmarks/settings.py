@@ -170,3 +170,9 @@ ABSOLUTE_URL_OVERRIDES = {
 # easy_thumbnails
 if DEBUG:
     THUMBNAIL_DEBUG = True
+
+# Redis settings
+if DEBUG:
+    REDIS_HOST = 'redis'
+    REDIS_PORT = 6379
+    REDIS_DB = 0
