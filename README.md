@@ -16,7 +16,7 @@ Keeping that in mind, you'll need to have following at project level:
    - `SECRET_KEY`
    - `ENV` (set to one of: `development` or `production`)
    - `POSTGRES_PASSWORD`
-   - **Bookmark Project** has social authentication so also you'll need
+   - **Bookmarks Project** has social authentication so also you'll need
      1. For Facebook:
         - SOCIAL_AUTH_FACEBOOK_KEY
         - SOCIAL_AUTH_FACEBOOK_SECRET
