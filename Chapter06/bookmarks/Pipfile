@@ -14,6 +14,7 @@ pillow = "*"
 social-auth-app-django = "*"
 certifi = "*"
 easy-thumbnails = "*"
+redis = "*"
 
 [requires]
 python_version = "3.8"
