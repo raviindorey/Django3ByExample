@@ -10,11 +10,13 @@ services:
       - .env/web.env
     ports:
       - 8000:8000
+      - "5672"
     volumes:
       - .:/code
     command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
+      - rabbitmq
     
   db:
     image: postgres
@@ -24,7 +26,11 @@ services:
       - d3be-myshop-pg:/var/lib/postgresql/data
   
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3-management
+    ports: 
+      - 5672:5672
+      - 15672:15672
+    hostname: my-rabbit
     command: rabbitmq-server
 
 volumes: 
