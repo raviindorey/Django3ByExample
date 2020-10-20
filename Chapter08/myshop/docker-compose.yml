@@ -7,7 +7,7 @@ services:
       dockerfile: dev.Dockerfile
     image: d3be-myshop
     env_file:
-      - .env/web.env
+      - .docker_env/web.env
     ports:
       - 8000:8000
       - "5672"
@@ -21,7 +21,7 @@ services:
   db:
     image: postgres
     env_file: 
-      - .env/db.env
+      - .docker_env/db.env
     volumes: 
       - d3be-myshop-pg:/var/lib/postgresql/data
   
