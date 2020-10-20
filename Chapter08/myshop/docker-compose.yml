@@ -1,0 +1,39 @@
+version: '3.8'
+
+services: 
+  web:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: d3be-myshop
+    env_file:
+      - .env/web.env
+    ports:
+      - 8000:8000
+      - "5672"
+    volumes:
+      - .:/code
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+      - rabbitmq
+    
+  db:
+    image: postgres
+    env_file: 
+      - .env/db.env
+    volumes: 
+      - d3be-myshop-pg:/var/lib/postgresql/data
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: 
+      - 5672:5672
+      - 15672:15672
+    hostname: my-rabbit
+    command: rabbitmq-server
+
+volumes: 
+  d3be-myshop-pg:
+    external: true
+    name: d3be-myshop-pg
