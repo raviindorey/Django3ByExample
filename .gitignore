@@ -129,6 +129,9 @@ dmypy.json
 # Virtual Environment
 *.venv
 
+# Docker env
+*.docker_env/
+
 # Certificates and keys
 *.key
 *.crt
