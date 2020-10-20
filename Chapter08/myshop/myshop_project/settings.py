@@ -1,4 +1,5 @@
 import os
+import braintree
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,3 +130,11 @@ CART_SESSION_ID = 'cart'
 
 # Email setup
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Braintree config
+BRAINTREE_CONF = braintree.Configuration(
+    environment=braintree.Environment.Sandbox,
+    merchant_id=os.environ.get('BRAINTREE_MERCHANT_ID'),
+    public_key=os.environ.get('BRAINTREE_PUBLIC_KEY'),
+    private_key=os.environ.get('BRAINTREE_PRIVATE_KEY'),
+)

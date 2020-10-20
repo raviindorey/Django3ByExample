@@ -4,12 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8 = "*"
 
 [packages]
 django = "*"
 psycopg2 = "*"
 pillow = "*"
 celery = "*"
+braintree = "*"
 
 [requires]
 python_version = "3.8"
